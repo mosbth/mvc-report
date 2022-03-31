@@ -1,0 +1,15 @@
+{% extends "base.html.twig" %}
+
+{% block title %}Index{% endblock %}
+
+{% block content %}
+<h1>Home</h1>
+
+<p class="important">
+Welcome to my awesome homepage.
+<img src="img/mos.png" width="200px" alt="mos">
+</p>
+
+<p><a href="{{ absolute_url("img/mos.png") }}">View the image</p>
+
+{% endblock %}
