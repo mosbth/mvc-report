@@ -6,31 +6,30 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
-class DiceController extends AbstractController
+class DiceGraphicController extends AbstractController
 {
     /**
-     * @Route("/dice", name="dice-home")
+     * @Route("/dice/graphic", name="dice-graphic-home")
      */
     public function home(): Response
     {
-        $die = new \App\Dice\Dice();
+        $die = new \App\Dice\DiceGraphic();
         $data = [
-            'title' => 'Dice',
+            'title' => 'Dice with graphic representation',
             'die_value' => $die->roll(),
             'die_as_string' => $die->getAsString(),
-            'link_to_roll' => $this->generateUrl('dice-roll', ['numRolls' => 5,]),
+            'link_to_roll' => $this->generateUrl('dice-graphic-roll', ['numRolls' => 5,]),
         ];
         return $this->render('dice/home.html.twig', $data);
     }
 
     /**
-     * @Route("/dice/roll/{numRolls}", name="dice-roll")
+     * @Route("/dice/grahpic/roll/{numRolls}", name="dice-graphic-roll")
      */
     public function roll(int $numRolls): Response
     {
-        $die = new \App\Dice\Dice();
+        $die = new \App\Dice\DiceGraphic();
 
         $rolls = [];
         for ($i = 1; $i <= $numRolls; $i++) {
@@ -39,7 +38,7 @@ class DiceController extends AbstractController
         }
 
         $data = [
-            'title' => 'Dice rolled many times',
+            'title' => 'Graphic dice rolled many times',
             'numRolls' => $numRolls,
             'rolls' => $rolls,
         ];
