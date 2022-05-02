@@ -6,6 +6,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use App\CardGame\CardGame;
 
 class CardGameController extends AbstractController
 {
@@ -14,7 +15,7 @@ class CardGameController extends AbstractController
      */
     public function home(): Response
     {
-        $game = new \App\CardGame\CardGame();
+        $game = new CardGame();
         $data = [
             'card' => $game->getCard(),
         ];

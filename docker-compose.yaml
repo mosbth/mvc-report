@@ -1,5 +1,41 @@
 version: "3"
+
+volumes:
+    mysql_data: {}
+    mariadb_data: {}
+
 services:
+    # Add support for mysql and mariadb
+    mariadb:
+        container_name: mariadb_mvc
+        image: mariadb:latest
+        restart: always
+        ports:
+            - "13306:3306"
+        environment:
+            MARIADB_ROOT_PASSWORD: pass
+        volumes:
+            - mariadb_data:/var/lib/mysql
+            #- ./example/sql.d/mariadb:/docker-entrypoint-initdb.d
+            #- ./example/sql/inspect/mariadb_my.cnf:/root/.my.cnf
+            #- ./example/sql/v2/my.cnf:/root/.my.cnf
+            - .:/home
+
+    mysql:
+        container_name: mysql_mvc
+        image: mysql:latest
+        restart: always
+        command: --default-authentication-plugin=mysql_native_password
+        ports:
+            - "13307:3306"
+        environment:
+            MYSQL_ROOT_PASSWORD: pass
+        volumes:
+            - mysql_data:/var/lib/mysql
+            #- ./example/sql.d/mysql:/docker-entrypoint-initdb.d
+            #- ./example/sql/inspect/mysql_my.cnf:/root/.my.cnf
+            #- ./example/sql/v2/my.cnf:/root/.my.cnf
+
     cli:
         image: anax/dev
         volumes: [ ".:/home/anax/repo" ]
